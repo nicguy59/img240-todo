@@ -1,0 +1,4 @@
+<%= form_for(Task.new) do |f| %>
+  <%= f.text_field :name, required: true, class: 'u-full-width', placeholder: 'What do you need to do?' %>
+  <%= f.submit 'Save', class: 'button-primary' %>
+<% end %>

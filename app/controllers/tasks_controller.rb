@@ -13,20 +13,34 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-    if @task.save
-      redirect_to root_url, notice: 'Created task'
-    else
-      render 'new'
-    end
+    respond_to do |fmt|
+      if @task.save
+        fmt.js { }
+        fmt.html { redirect_to root_url, notice: 'Created task' }
+      else
+        fmt.js { }
+        fmt.html { render 'new' }
+      
+        # fmt.html do
+        #  render 'new'
+        # end
+      
+      end  
+    end  
   end
 
   def update
-    @task.update(task_params)
-    if @task.save
-      redirect_to root_url, notice: 'Updated task'
-    else
-      render 'edit'
-    end
+    respond_to do |format|  #this handles the remote function to provide only the js update
+      if @task.update(task_params)
+        format.js {}
+        format.html do
+         redirect_to root_url, notice: 'Updated task'
+        end
+      else
+        format.js {}
+        format.html {render 'edit'}
+      end
+    end 
   end
 
   private

@@ -1,0 +1,2 @@
+/*document.getElementById('task-id') */
+$('#task-<%= @task.id %>').replaceWith("<%= j(render(@task)) %>")
